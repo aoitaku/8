@@ -4,45 +4,39 @@ class Game
   attr_accessor :prelude, :finale
 
   def initialize(stage_data)
-    self.screen = RenderTarget.new(Window.width/2, Window.height/2)
-    self.stage = Stage.new(self, stage_data)
-    self.player = Player.new(Assets[:player])
-    self.player.target = self.screen
-    self.player.collision = [5, 3, 10, 12]
-    self.setup
+    @screen = RenderTarget.new(Window.width/2, Window.height/2)
+    @stage  = Stage.new(self, stage_data)
+    @player = Player.new(Assets[:player])
+    @player.target    = self.screen
+    @player.collision = [5, 3, 10, 12]
+    setup
   end
 
   def setup
-    self.player.x = (self.screen.width - self.player.image.width) / 2
-    self.player.y = self.screen.height
-    self.enemies = []
-    self.shots = []
-    self.bullets = []
+    @player.x = (@screen.width - @player.width) / 2
+    @player.y = @screen.height
+    @enemies  = []
+    @shots    = []
+    @bullets  = []
 
-    tap do |game|
-      game.prelude = Fiber.new do
+    @prelude = Fiber.new{
+      Fiber.yield
+      v = 5
+      while v > 0.9
+        v *= 0.9
+        @player.y -= v
         Fiber.yield
-        v = 5
-        while v > 0.9
-          v *= 0.9
-          game.player.y -= v
-          Fiber.yield
-        end
-        game.player.vy = -0.9
       end
-      game.finale = Fiber.new do
-
-      end
-    end
+      @player.vy = -0.9
+    }
+    @finale = Fiber.new{}
   end
 
   def update
     stage.update
     if player.alive?
       player.update_input
-      if Input.key_push?(K_Z)
-        shots.push(*player.fire)
-      end
+      shots.push(*player.fire) if Input.key_push?(K_Z)
       player.update
       Sprite.update(shots)
       Sprite.update(enemies)

@@ -35,11 +35,11 @@ class EnemySpawner
 
   def spawn(x, y, enemy_model)
     enemy = Enemy.new(x, y, enemy_model.image)
-    enemy.collision =  enemy_model.collision
+    enemy.collision  = enemy_model.collision
     enemy.durability = enemy_model.durability
-    enemy.routine = enemy_model.routine[enemy, self.game]
-    enemy.target = self.game.screen
-    enemy.gun = enemy_model.gun.new(enemy)
+    enemy.routine    = enemy_model.routine[enemy, self.game]
+    enemy.target     = self.game.screen
+    enemy.gun        = enemy_model.gun.new(enemy)
     enemy
   end
 

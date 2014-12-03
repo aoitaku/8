@@ -4,6 +4,8 @@ class Player < Character
 
   def initialize(image)
     super(0, 0, image)
+    self.vx = 0
+    self.vy = 0
     self.durability = 1
     self.equipment = {}
     @diagonal_verocity_max = Math.sqrt(2)

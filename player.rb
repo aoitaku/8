@@ -32,11 +32,12 @@ class Player < Character
 
   def fire
     [-4, 4].map do |x|
-      bullet = PlayerBullet.new(self.x + x, centering_vertical(Assets[:shot][0]), Assets[:shot])
-      bullet.collision = [7, 3, 8, 12]
-      bullet.target = self.target
-      bullet.vy = -@shot_force
-      bullet
+      Bullet.new(self.x + x, centering_vertical(Assets[:shot][0]), Assets[:shot]).tap{|bullet|
+        bullet.family    = :player_bullet
+        bullet.collision = [7, 3, 8, 12]
+        bullet.target    = self.target
+        bullet.vy        = -@shot_force
+      }
     end
   end
 
@@ -62,7 +63,4 @@ class Player < Character
     update_input
   end
 
-end
-
-class PlayerBullet < Bullet
 end

@@ -5,6 +5,7 @@ module Shooter
     Bullet.new(shooter.x,
                shooter.centering_vertical(Assets[:bullet][0]),
                Assets[:bullet]).tap{|bullet|
+      bullet.family    = :enemy_bullet
       bullet.collision = [3, 3, 12, 12]
       bullet.target = shooter.target
       shooter.angle(target.x, target.y).tap do |deg|
@@ -19,6 +20,7 @@ module Shooter
       Bullet.new(shooter.x,
                  shooter.centering_vertical(Assets[:bullet][0]),
                  Assets[:bullet]).tap{|bullet|
+        bullet.family    = :enemy_bullet
         bullet.collision = [3, 3, 12, 12]
         bullet.target = shooter.target
         shooter.angle(target.x, target.y).tap do |deg|

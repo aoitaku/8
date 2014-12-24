@@ -40,12 +40,12 @@ class Game
 
   def join(*units)
     units.each do |unit|
-      case unit
-      when PlayerBullet
+      case unit.family
+      when :player_bullet
         self.shots.push(unit)
-      when Enemy
+      when :enemy
         self.enemies.push(unit)
-      when Bullet
+      when :enemy_bullet
         self.bullets.push(unit)
       else
         raise

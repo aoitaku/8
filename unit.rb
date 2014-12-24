@@ -4,7 +4,7 @@ class Unit < Sprite
 
   def_delegators :image, :width, :height
 
-  attr_accessor :vx, :vy
+  attr_accessor :vx, :vy, :family
 
   def initialize(x, y)
     super(x, y)

@@ -37,6 +37,7 @@ class EnemySpawner
 
   def spawn(x, y, enemy_model)
     Enemy.new(x, y, enemy_model.image).tap{|enemy|
+      enemy.family     = :enemy
       enemy.collision  = enemy_model.collision
       enemy.durability = enemy_model.durability
       enemy.routine    = enemy_model.routine[enemy, Game.instance]
